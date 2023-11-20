@@ -14,10 +14,12 @@
     <video id="video" controls autoplay playsinline preload="auto" width="500px" height="250px"></video>
 
     <script>
+        const url = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+
         var video = document.getElementById('video');
         if(Hls.isSupported()) {
             var hls = new Hls();
-            hls.loadSource('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8');
+            hls.loadSource(url);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED,function() {
                 console.log(123)
@@ -29,7 +31,7 @@
             // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
         // This is using the built-in support of the plain video element, without using hls.js.
         else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
+            video.src = url;
             video.addEventListener('canplay',function() {
                 video.play();
             });
