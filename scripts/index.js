@@ -54,11 +54,18 @@ const playWithMediaSource = () => {
 
     const video = document.getElementById('video');
 
-    const videoSource = document.createElement('source');
-    videoSource.type = 'application/x-mpegURL';
-    videoSource.src = appleUrl;
+    const mediasource = getMediaSource();
 
-    video.appendChild(videoSource);
+    const videoSource1 = document.createElement('source');
+    videoSource1. type = 'video/mp4' ;
+    videoSource1.src = URL.createObjectURL(mediasource);
+    video.appendChild(videoSource1) ;
+    
+    const videoSource2 = document.createElement('source');
+    videoSource2. type = 'application/x-mpegURL' ;
+    videoSource2.src = "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8";
+    video.appendChild(videoSource2);
+
 
     // const mediaSource = getMediaSource();
     //
