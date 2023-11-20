@@ -29,6 +29,7 @@
 
         .controls button {
             height: 32px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -47,57 +48,9 @@
     <div class="controls">
         <button id="btnWithHlsChecking">play with Hls checking</button>
         <button id="btnWithoutHlsChecking">play without Hls checking</button>
+        <button id="btnWithMediaSource">play with MediaSource</button>
     </div>
 
-    <script>
-        const url = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
-
-        const playWithHlsChecking = () => {
-            const video = document.getElementById('video');
-
-            if(Hls.isSupported()) {
-                const hls = new Hls();
-
-                hls.loadSource(url);
-                hls.attachMedia(video);
-
-                hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                    console.log(123)
-
-                    video.play();
-                });
-            }
-            // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
-            // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
-            // This is using the built-in support of the plain video element, without using hls.js.
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = url;
-                video.addEventListener('canplay',function() {
-                    video.play();
-                });
-            }
-        }
-
-        const playWithoutHlsChecking = () => {
-            const video = document.getElementById('video');
-
-            const hls = new Hls();
-
-            hls.loadSource(url);
-            hls.attachMedia(video);
-
-            hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                console.log(123)
-
-                video.play();
-            });
-        }
-
-        const btnWithHlsChecking = document.getElementById('btnWithHlsChecking');
-        const btnWithoutHlsChecking = document.getElementById('btnWithoutHlsChecking');
-
-        btnWithHlsChecking.addEventListener('click', playWithHlsChecking);
-        btnWithoutHlsChecking.addEventListener('click', playWithoutHlsChecking);
-    </script>
+    <script src="scripts/index.js"></script>
 </body>
 </html>
